@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 """
 Created on Tue Jun  3 14:57:28 2025
 
@@ -14,9 +14,9 @@ from tempfile import TemporaryDirectory
 import os
 
 # Set required nnU-Net v2 environment variables
-os.environ["nnUNet_raw"] = r"C:\Users\meher\spyder\nnUNet_raw"
-os.environ["nnUNet_preprocessed"] = r"C:\Users\meher\spyder\nnUNet_preprocessed"
-os.environ["nnUNet_results"] = r"C:\Users\meher\spyder\nnUNet_trained\nnUNet_results"
+os.environ["nnUNet_raw"] = r"C:\Users\nnUNet_raw"
+os.environ["nnUNet_preprocessed"] = r"C:\Users\nnUNet_preprocessed"
+os.environ["nnUNet_results"] = r"C:\Users\nnUNet_trained\nnUNet_results"
 
 def save_prediction_as_binary_pngs(pred_path, output_dir, base_name):
     """
