@@ -44,33 +44,61 @@ export nnUNet_results="/path/to/nnUNet_results"
 ```
 # 3. Prepare Input .npy Files
 
-- Image shape: `(Z, Y, X)` or `(Y, X)`
 - Label must match image shape
 - Labels must be integer values
 - Background class = `0`
 
-# 4. Convert `.npy` → `.nii.gz`
+# 5. Create Dataset Folder
 
-Example conversion script:
+Example:
 
-```python
-import os
-import numpy as np
-import SimpleITK as sitk
+```bash
+mkdir -p $nnUNet_raw/Dataset101_Vessels/imagesTr
+mkdir -p $nnUNet_raw/Dataset101_Vessels/labelsTr
+mkdir -p $nnUNet_raw/Dataset101_Vessels/imagesTs
+```
 
-def npy_to_nifti(npy_path, out_path, spacing=(1.0,1.0,1.0), is_label=False):
+Move the converted `.nii.gz` files into the appropriate folders.
 
-    arr = np.load(npy_path)
+---
 
-    if arr.ndim == 2:
-        arr = arr[None, ...]
+# 6. Create `dataset.json`
 
-    if is_label:
-        arr = arr.astype(np.uint8)
-    else:
-        arr = arr.astype(np.float32)
+Example:
 
-    img = sitk.GetImageFromArray(arr)
-    img.SetSpacing(spacing)
+```json
+{
+  "name": "Vessels",
+  "tensorImageSize": "3D",
+  "modality": { "0": "CT" },
+  "labels": {
+    "background": 0,
+    "vessel": 1
+  },
+  "numTraining": 100,
+  "numTest": 20
+}
+```
 
-    sitk.WriteImage(img, out_path, True)
+---
+
+# 7. Verify Dataset Integrity
+
+```bash
+nnUNetv2_verify_dataset_integrity -d 101
+```
+
+---
+
+# 8. Plan and Preprocess
+
+```bash
+nnUNetv2_plan_and_preprocess -d 101 --verify_dataset_integrity
+```
+
+This step will:
+
+- Determine optimal patch size  
+- Analyze voxel spacing  
+- Normalize intensities  
+- Generate preprocessed training data
