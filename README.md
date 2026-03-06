@@ -110,16 +110,6 @@ Train one fold:
 ```bash
 nnUNetv2_train 101 3d_fullres 0
 ```
-
-Train all 5 folds:
-
-```bash
-for f in 0 1 2 3 4
-do
-    nnUNetv2_train 101 3d_fullres $f
-done
-```
-
 ---
 
 # 9. Run Inference
