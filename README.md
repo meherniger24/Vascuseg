@@ -34,3 +34,8 @@ Important:
 
 ```bash
 pip install -U nnunetv2
+
+# 2. Install nnU-Net v2
+
+```bash
+nnUNetv2_print_available_pretrained_models
