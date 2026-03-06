@@ -1,24 +1,36 @@
 # nnU-Net v2 from .npy → Training → Inference (Step-by-Step)
 
-This guide shows how to train nnU-Net v2 starting from many NumPy volumes (.npy) and their segmentation masks (.npy), by converting them into the format nnU-Net expects.
+# What nnU-Net Expects
 
-# What nnU-Net expects
+nnU-Net requires data in **NIfTI (.nii.gz)** format organized in a specific directory structure.
 
-nnU-Net v2 expects a dataset in nnU-Net Raw format:
+Expected structure:
 
-Images: NIfTI (.nii.gz) in imagesTr/ and imagesTs/
+nnUNet_raw/
+└── DatasetXXX_NAME/
+    ├── imagesTr/
+    ├── labelsTr/
+    ├── imagesTs/
+    └── dataset.json
 
-Labels (masks): NIfTI (.nii.gz) in labelsTr/
+File naming rules:
 
-A dataset.json describing modalities + labels
+imagesTr/
+- case_0001_0000.nii.gz
+- case_0002_0000.nii.gz
 
-Naming rules (important)
+labelsTr/
+- case_0001.nii.gz
+- case_0002.nii.gz
 
-Case ID format: case_0001, case_0002, ...
+Important:
+- `_0000` indicates image channel 0
+- Labels must contain integer class values
+- Background must be 0
 
-Image filename: case_0001_0000.nii.gz
-(_0000 = channel 0; multi-channel uses _0001, _0002, etc.)
+---
 
-Label filename: case_0001.nii.gz
+# 1. Install nnU-Net v2
 
-1) Install nnU-Net v2
+```bash
+pip install -U nnunetv2
