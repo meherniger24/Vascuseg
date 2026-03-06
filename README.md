@@ -34,8 +34,10 @@ Important:
 
 ```bash
 pip install -U nnunetv2
-
-# 2. Install nnU-Net v2
+```
+# 2. Set Environment Variables
 
 ```bash
-nnUNetv2_print_available_pretrained_models
+export nnUNet_raw="/path/to/nnUNet_raw"
+export nnUNet_preprocessed="/path/to/nnUNet_preprocessed"
+export nnUNet_results="/path/to/nnUNet_results"
