@@ -1,4 +1,4 @@
-#nnU-Net v2 from .npy → Training → Inference (Step-by-Step)
+# nnU-Net v2 from .npy → Training → Inference (Step-by-Step)
 
 This guide shows how to train nnU-Net v2 starting from many NumPy volumes (.npy) and their segmentation masks (.npy), by converting them into the format nnU-Net expects.
 
