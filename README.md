@@ -48,7 +48,7 @@ export nnUNet_results="/path/to/nnUNet_results"
 - Labels must be integer values
 - Background class = `0`
 
-# 5. Create Dataset Folder
+# 4. Create Dataset Folder
 
 Example:
 
@@ -62,7 +62,7 @@ Move the converted `.nii.gz` files into the appropriate folders.
 
 ---
 
-# 6. Create `dataset.json`
+# 5. Create `dataset.json`
 
 Example:
 
@@ -82,7 +82,7 @@ Example:
 
 ---
 
-# 7. Verify Dataset Integrity
+# 6. Verify Dataset Integrity
 
 ```bash
 nnUNetv2_verify_dataset_integrity -d 101
@@ -90,7 +90,7 @@ nnUNetv2_verify_dataset_integrity -d 101
 
 ---
 
-# 8. Plan and Preprocess
+# 7. Plan and Preprocess
 
 ```bash
 nnUNetv2_plan_and_preprocess -d 101 --verify_dataset_integrity
@@ -102,3 +102,63 @@ This step will:
 - Analyze voxel spacing  
 - Normalize intensities  
 - Generate preprocessed training data
+
+# 8. Train Model
+
+Train one fold:
+
+```bash
+nnUNetv2_train 101 3d_fullres 0
+```
+
+Train all 5 folds:
+
+```bash
+for f in 0 1 2 3 4
+do
+    nnUNetv2_train 101 3d_fullres $f
+done
+```
+
+---
+
+# 9. Run Inference
+
+```bash
+nnUNetv2_predict \
+-i $nnUNet_raw/Dataset101_Vessels/imagesTs \
+-o predictions \
+-d 101 \
+-c 3d_fullres \
+-f 0 1 2 3 4
+```
+
+Output structure:
+
+```
+predictions/
+├── case_0001.nii.gz
+├── case_0002.nii.gz
+```
+
+---
+
+# 10. Workflow Summary
+
+```
+.npy images
+    ↓
+Convert to NIfTI
+    ↓
+Create nnU-Net dataset
+    ↓
+Verify dataset
+    ↓
+Plan & preprocess
+    ↓
+Train
+    ↓
+Predict
+    ↓
+Evaluate
+```
