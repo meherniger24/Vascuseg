@@ -2,7 +2,7 @@
 
 This guide shows how to train nnU-Net v2 starting from many NumPy volumes (.npy) and their segmentation masks (.npy), by converting them into the format nnU-Net expects.
 
-0) What nnU-Net expects
+# What nnU-Net expects
 
 nnU-Net v2 expects a dataset in nnU-Net Raw format:
 
